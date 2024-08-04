@@ -26,5 +26,6 @@ server.use(express.json())
 // ROUTING
 
 server.use('/api/products', router)
+
 export default server
 

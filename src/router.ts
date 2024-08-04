@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { createProduct } from "./handlers/product"
 import { body } from "express-validator";
+import { handleInputErrors } from "./middleware";
 
 const router = Router()
 
@@ -17,7 +18,9 @@ router.post('/',
         .isNumeric().withMessage('Please enter a valid product price.')
         .notEmpty().withMessage('The product price must not be empty')
         .custom( value => value > 0).withMessage('Please enter a valid product price.'),
-
+    
+    handleInputErrors,
+    
     createProduct
 )
 
