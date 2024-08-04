@@ -17,7 +17,11 @@ async function connectDB() {
 
 connectDB()
 
+
 const server = express()
+
+// Reading data from form
+server.use(express.json())
 
 // ROUTING
 
