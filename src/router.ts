@@ -1,13 +1,17 @@
 import { Router } from "express"
 import { createProduct, getProductById, getProducts } from "./handlers/product"
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { handleInputErrors } from "./middleware";
 
 const router = Router()
 
 router.get('/', getProducts)
 
-router.get('/:id', getProductById)
+router.get('/:id', 
+    param('id').isInt().withMessage('ID must be an integer'),
+    handleInputErrors,
+    getProductById
+)
 
 router.post('/', 
     // VALIDATION 
