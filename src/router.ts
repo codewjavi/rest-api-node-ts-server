@@ -20,7 +20,7 @@ router.get('/:id',
 router.post('/', 
     // VALIDATION 
     body('name')
-    .notEmpty().withMessage('The product name must not be empty'),
+        .notEmpty().withMessage('The product name must not be empty'),
         
     body('price')
         .isNumeric().withMessage('Please enter a valid product price.')

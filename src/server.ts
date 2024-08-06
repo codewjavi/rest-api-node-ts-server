@@ -27,5 +27,9 @@ server.use(express.json())
 
 server.use('/api/products', router)
 
+server.get('/api', (req, res) => {
+    res.json({msg: 'From API'})
+})
+
 export default server
 

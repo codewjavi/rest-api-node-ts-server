@@ -1,9 +1,12 @@
-describe('My first test', () => {
-    it('1 + 1 it must be 2', () => {
-        expect(1 + 1).toBe(2)
-    })
+import request from "supertest";
+import server from "../server";
 
-    it('1 + 1 it mustnt be 3', () => {
-        expect(1 + 1).not.toBe(3)
+describe('GET /api', () => {
+    it('should send back a JSON response', async () => {
+        const res = await request(server).get('/api')
+        
+        expect(res.status).toBe(200)
+        expect(res.headers['content-type']).toMatch(/json/)
+        expect(res.body.msg).toBe('From API')
     })
 })
