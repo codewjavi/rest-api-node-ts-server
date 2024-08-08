@@ -17,7 +17,6 @@ async function connectDB() {
 
 connectDB()
 
-
 const server = express()
 
 // Reading data from form
