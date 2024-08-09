@@ -86,7 +86,7 @@ describe('GET /api/products/:id', () => {
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty('errors')
         expect(response.body.errors).toHaveLength(1)
-        expect(response.body.errors[0].msg).toBe('ID must be an integer')
+        expect(response.body.errors[0].msg).toBe('ID not valid')
     })
 
     it('get a JSON response for a single product', async () => {
@@ -99,7 +99,49 @@ describe('GET /api/products/:id', () => {
 
 // PUT
 describe('PUT /api/products/:id', () => {
+    it('should check a valid ID in the URL', async () => {
+        const response = await request(server)
+                            .put('/api/products/not-valid-url')
+                            .send({
+                                name: "Ipad Pro",
+                                availability: true,
+                                price: 300
+                            })
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty('errors')
+        expect(response.body.errors).toHaveLength(1)
+        expect(response.body.errors[0].msg).toBe('ID not valid')
+    })
+
     it('should display validation error messages when updating a product', async () => {
         const response = await request(server).put('/api/products/1').send({})
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty('errors')
+        expect(response.body.errors).toBeTruthy()
+        expect(response.body.errors).toHaveLength(5)
+        
+        expect(response.status).not.toBe(200)
+        expect(response.body).not.toHaveProperty('data')
     })
+
+    it('should validate that the price is greater than 0', async () => {
+        const response = await request(server)
+                            .put('/api/products/1')
+                            .send({
+                                name: "Ipad Pro",
+                                availability: true,
+                                price: 0
+                            })
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty('errors')
+        expect(response.body.errors).toBeTruthy()
+        expect(response.body.errors).toHaveLength(1)
+        expect(response.body.errors[0].msg).toBe('Please enter a valid product price')
+        
+        expect(response.status).not.toBe(200)
+        expect(response.body).not.toHaveProperty('data')
+    })
+
 })

@@ -9,11 +9,10 @@ const router = Router()
 router.get('/',
     getProducts
 )
+// GET BY ID
 router.get('/:id', 
-    param('id').isInt().withMessage('ID must be an integer'),
-    
+    param('id').isInt().withMessage('ID not valid'),
     handleInputErrors,
-
     getProductById
 )
 
@@ -24,44 +23,40 @@ router.post('/',
         .notEmpty().withMessage('The product name must not be empty'),
         
     body('price')
-        .isNumeric().withMessage('Please enter a valid product price.')
+        .isNumeric().withMessage('Please enter a valid product price')
         .notEmpty().withMessage('The product price must not be empty')
-        .custom( value => value > 0).withMessage('Please enter a valid product price.'),
-    
+        .custom( value => value > 0).withMessage('Please enter a valid product price'),
     handleInputErrors,
-    
     createProduct
 )
 
 // PUT
 router.put('/:id',
-    param('id').isInt().withMessage('ID must be an integer'),
+    param('id').isInt().withMessage('ID not valid'),
     
     body('name')
     .notEmpty().withMessage('The product name must not be empty'),
         
     body('price')
-        .isNumeric().withMessage('Please enter a valid product price.')
+        .isNumeric().withMessage('Please enter a valid product price')
         .notEmpty().withMessage('The product price must not be empty')
-        .custom( value => value > 0).withMessage('Please enter a valid product price.'),
+        .custom( value => value > 0).withMessage('Please enter a valid product price'),
     body('availability')
         .isBoolean().withMessage('Availability must be a boolean'),
-
     handleInputErrors,
-
     updateProduct
 )
 
 // PATCH
 router.patch('/:id',
-    param('id').isInt().withMessage('ID must be an integer'),
+    param('id').isInt().withMessage('ID not valid'),
     handleInputErrors,
     updateAvailability
 )
 
 // DELETE
 router.delete('/:id',
-    param('id').isInt().withMessage('ID must be an integer'),
+    param('id').isInt().withMessage('ID not valid'),
     handleInputErrors,
     deleteProduct
 )
