@@ -5,7 +5,7 @@ import colors from 'colors'
 
 // Connect DB
 
-async function connectDB() {
+export async function connectDB() {
     try {
         await db.authenticate()
         db.sync()
@@ -16,9 +16,10 @@ async function connectDB() {
 
 connectDB()
 
+// Express Instance
 const server = express()
 
-// Reading data from form
+// Reading data from forms
 server.use(express.json())
 
 // ROUTING

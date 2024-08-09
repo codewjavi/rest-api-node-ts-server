@@ -5,10 +5,10 @@ import { handleInputErrors } from "./middleware";
 
 const router = Router()
 
+// GET
 router.get('/',
     getProducts
 )
-
 router.get('/:id', 
     param('id').isInt().withMessage('ID must be an integer'),
     
@@ -17,6 +17,7 @@ router.get('/:id',
     getProductById
 )
 
+// POST
 router.post('/', 
     // VALIDATION 
     body('name')
@@ -32,6 +33,7 @@ router.post('/',
     createProduct
 )
 
+// PUT
 router.put('/:id',
     param('id').isInt().withMessage('ID must be an integer'),
     
@@ -50,12 +52,14 @@ router.put('/:id',
     updateProduct
 )
 
-router.patch('/',
+// PATCH
+router.patch('/:id',
     param('id').isInt().withMessage('ID must be an integer'),
     handleInputErrors,
     updateAvailability
 )
 
+// DELETE
 router.delete('/:id',
     param('id').isInt().withMessage('ID must be an integer'),
     handleInputErrors,
