@@ -144,4 +144,37 @@ describe('PUT /api/products/:id', () => {
         expect(response.body).not.toHaveProperty('data')
     })
 
+    it('should return a 404 responde for a non-existent product', async () => {
+        const productId = 2000
+        const response = await request(server)
+                            .put(`/api/products/${productId}`)
+                            .send({
+                                name: "Ipad Pro",
+                                availability: true,
+                                price: 300
+                            })
+
+        expect(response.status).toBe(404)
+        expect(response.body.error).toBe('Product not found')
+        
+        expect(response.status).not.toBe(200)
+        expect(response.body).not.toHaveProperty('data')
+    })
+
+    it('should update an existing product with valid data', async () => {
+        const response = await request(server)
+                            .put(`/api/products/1`)
+                            .send({
+                                name: "Ipad Pro",
+                                availability: true,
+                                price: 300
+                            })
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty('data')
+        
+        expect(response.status).not.toBe(400)
+        expect(response.body).not.toHaveProperty('errors')
+    })
 })
+
