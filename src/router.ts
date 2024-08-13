@@ -5,6 +5,36 @@ import { handleInputErrors } from "./middleware";
 
 const router = Router()
 
+/**
+ * @swagger
+ * components:
+ *      schemas:
+ *          Product:
+ *              type: object
+ *              properties:
+ *                  id:
+ *                      type: integer
+ *                      description: The Product ID
+ *                      example: 1
+ *                  name:
+ *                      type: string
+ *                      description: The Product name
+ *                      example: Iphone 15 PRO
+ *                  price:
+ *                      type: number
+ *                      description: The Product price
+ *                      example: 1299
+ *                  availability:
+ *                      type: boolean
+ *                      description: The Product availability
+ *                      example: true
+ * 
+ * 
+ */
+
+
+
+
 // GET
 router.get('/',
     getProducts
