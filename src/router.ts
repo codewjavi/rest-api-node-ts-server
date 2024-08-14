@@ -104,6 +104,39 @@ router.post('/',
     createProduct
 )
 
+/**
+ * @swagger
+ * /api/products:
+ *  post:
+ *      summary: Creates a new product
+ *      tags:
+ *          - Products
+ *      description: Returns a new record in the database
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                              example: "Samsung S23 Ultra"
+ *                          price:
+ *                              type: number
+ *                              example: 1499
+ *      responses:
+ *          201:
+ *              description: Successful response
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Product'
+ *          400:
+ *              description: Bad Request - invalid input data
+ * 
+ */
+
 // PUT
 router.put('/:id',
     param('id').isInt().withMessage('ID not valid'),
