@@ -31,6 +31,11 @@ const router = Router()
  */
 
 
+// GET
+router.get('/',
+    getProducts
+)
+
 /**
  * @swagger
  * /api/products:
@@ -49,18 +54,6 @@ const router = Router()
  *                              items:
  *                                  $ref: '#/components/schemas/Product'
  */
-
-// GET
-router.get('/',
-    getProducts
-)
-
-// GET BY ID
-router.get('/:id', 
-    param('id').isInt().withMessage('ID not valid'),
-    handleInputErrors,
-    getProductById
-)
 
 /**
  * @swagger
@@ -90,18 +83,11 @@ router.get('/:id',
  *              description: Not found
  */
 
-// POST
-router.post('/', 
-    // VALIDATION 
-    body('name')
-        .notEmpty().withMessage('The product name must not be empty'),
-        
-    body('price')
-        .isNumeric().withMessage('Please enter a valid product price')
-        .notEmpty().withMessage('The product price must not be empty')
-        .custom( value => value > 0).withMessage('Please enter a valid product price'),
+// GET BY ID
+router.get('/:id', 
+    param('id').isInt().withMessage('ID not valid'),
     handleInputErrors,
-    createProduct
+    getProductById
 )
 
 /**
@@ -137,21 +123,18 @@ router.post('/',
  * 
  */
 
-// PUT
-router.put('/:id',
-    param('id').isInt().withMessage('ID not valid'),
-    
+// POST
+router.post('/', 
+    // VALIDATION 
     body('name')
-    .notEmpty().withMessage('The product name must not be empty'),
+        .notEmpty().withMessage('The product name must not be empty'),
         
     body('price')
         .isNumeric().withMessage('Please enter a valid product price')
         .notEmpty().withMessage('The product price must not be empty')
         .custom( value => value > 0).withMessage('Please enter a valid product price'),
-    body('availability')
-        .isBoolean().withMessage('Availability must be a boolean'),
     handleInputErrors,
-    updateProduct
+    createProduct
 )
 
 /**
@@ -197,6 +180,23 @@ router.put('/:id',
  *          404:
  *              description: Product Not Found
  */
+
+// PUT
+router.put('/:id',
+    param('id').isInt().withMessage('ID not valid'),
+    
+    body('name')
+    .notEmpty().withMessage('The product name must not be empty'),
+        
+    body('price')
+        .isNumeric().withMessage('Please enter a valid product price')
+        .notEmpty().withMessage('The product price must not be empty')
+        .custom( value => value > 0).withMessage('Please enter a valid product price'),
+    body('availability')
+        .isBoolean().withMessage('Availability must be a boolean'),
+    handleInputErrors,
+    updateProduct
+)
 
 // PATCH
 router.patch('/:id',
